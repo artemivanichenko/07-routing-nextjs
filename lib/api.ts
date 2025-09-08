@@ -11,6 +11,7 @@ const axiosInst = axios.create({
 interface fetchNotesProps {
 	notes: Note[];
 	totalPages: number;
+	status: string;
 }
 
 interface newTaskProp {
@@ -21,13 +22,15 @@ interface newTaskProp {
 
 export const fetchNotes = async (
 	search: string,
-	page: number
+	page: number,
+	tag: string
 ): Promise<fetchNotesProps> => {
 	const params = {
 		params: {
 			page,
 			perPage: 12,
 			search,
+			...(tag && { tag }),
 		},
 	};
 
@@ -38,7 +41,7 @@ export const fetchNotes = async (
 	return fetchNotesResponse.data;
 };
 
-export const fetchNotesById = async (id: string): Promise<Note> => {
+export const fetchNoteById = async (id: string): Promise<Note> => {
 	const fetchNotesResponse = await axiosInst.get<Note>(`/notes/${id}`);
 	return fetchNotesResponse.data;
 };

@@ -8,3 +8,12 @@ export interface Note {
 }
 
 export type NoteTag = "Work" | "Personal" | "Meeting" | "Shopping" | "Todo";
+
+export const tags = [
+	"All",
+	"Todo",
+	"Work",
+	"Personal",
+	"Meeting",
+	"Shopping",
+] as const;

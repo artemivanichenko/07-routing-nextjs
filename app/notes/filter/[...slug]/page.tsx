@@ -7,17 +7,25 @@ import {
 import React from "react";
 import NotesClient from "./Notes.client";
 
-const Notes = async () => {
+interface NotesProps {
+	params: Promise<{ slug: string[] }>;
+}
+
+const Notes = async ({ params }: NotesProps) => {
 	const queryClient = new QueryClient();
+	const { slug } = await params;
+
+	const tag = slug[0] === "All" ? "" : slug[0];
+	// console.log(status);
 
 	await queryClient.prefetchQuery({
-		queryKey: ["notes"],
-		queryFn: () => fetchNotes("", 1),
+		queryKey: ["notes", tag],
+		queryFn: () => fetchNotes("", 1, tag),
 	});
 	return (
 		<div>
 			<HydrationBoundary state={dehydrate(queryClient)}>
-				<NotesClient />
+				<NotesClient tag={tag} />
 			</HydrationBoundary>
 		</div>
 	);

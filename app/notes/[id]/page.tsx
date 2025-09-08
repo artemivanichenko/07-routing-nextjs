@@ -1,4 +1,4 @@
-import { fetchNotesById } from "@/lib/api";
+import { fetchNoteById } from "@/lib/api";
 import {
 	HydrationBoundary,
 	QueryClient,
@@ -16,7 +16,7 @@ const NotesDetails = async ({ params }: NotesDetailsProps) => {
 	const queryClient = new QueryClient();
 	await queryClient.prefetchQuery({
 		queryKey: ["note", id],
-		queryFn: () => fetchNotesById(id),
+		queryFn: () => fetchNoteById(id),
 	});
 	return (
 		<div>
