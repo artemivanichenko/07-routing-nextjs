@@ -11,9 +11,7 @@ const axiosInst = axios.create({
 interface fetchNotesProps {
 	notes: Note[];
 	totalPages: number;
-	status: string;
 }
-
 interface newTaskProp {
 	title: string;
 	content: string;
@@ -46,12 +44,12 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 	return fetchNotesResponse.data;
 };
 
-export const createNote = async (newTask: newTaskProp) => {
+export const createNote = async (newTask: newTaskProp): Promise<Note> => {
 	const createNoteResponse = await axiosInst.post("/notes", newTask);
 	return createNoteResponse.data;
 };
 
-export const deleteNote = async (taskID: string) => {
+export const deleteNote = async (taskID: string): Promise<Note> => {
 	const deleteNoteResponse = await axiosInst.delete(`/notes/${taskID}`);
 	return deleteNoteResponse.data;
 };
